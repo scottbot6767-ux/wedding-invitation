@@ -241,6 +241,25 @@ body {
   color: #8a7e78;
 }
 
+/* ── PHOTO CARD — 4×6in ── */
+.photo-card {
+  width: 4in;
+  height: 6in;
+  overflow: hidden;
+  padding: 0;
+  align-self: flex-end;
+  margin-bottom: 0.5in;
+}
+.photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
 /* ── INSERT CARD — 3.5in × 5in ── */
 .insert-card {
   width: 3.5in;
@@ -252,7 +271,7 @@ body {
   align-items: center;
   justify-content: space-between;
   align-self: flex-end;
-  margin-bottom: 1in; /* visually align with main card bottom */
+  margin-bottom: 0.5in;
 }
 .insert-card > * { position: relative; z-index: 1; }
 
@@ -294,42 +313,29 @@ body {
 @media print {
   body { background: white; }
   .toolbar { display: none; }
-
-  /* Default: print main card only */
   .scene { padding: 0; gap: 0; display: block; }
-  .insert-card { display: none; }
-
-  .main-card {
-    width: 5in;
-    height: 7in;
-    box-shadow: none;
-    margin: 0;
-  }
+  .card { box-shadow: none; }
   .card::before { display: none; }
 
-  @page {
-    size: 5in 7in;
-    margin: 0;
-  }
-}
+  /* Default: main card only, 5×7 */
+  .insert-card, .photo-card { display: none; }
+  .main-card { width: 5in; height: 7in; margin: 0; }
+  @page { size: 5in 7in; margin: 0; }
 
-/* Insert-only print mode */
-@media print {
-  body.print-insert .main-card { display: none; }
+  /* Insert print mode */
+  body.print-insert .main-card,
+  body.print-insert .photo-card { display: none; }
   body.print-insert .insert-card {
-    display: flex;
-    width: 3.5in;
-    height: 5in;
-    box-shadow: none;
-    margin: 0;
-    align-self: auto;
-    margin-bottom: 0;
+    display: flex; width: 3.5in; height: 5in;
+    margin: 0; align-self: auto; margin-bottom: 0;
   }
-  body.print-insert { }
 
-  @page insert-page {
-    size: 3.5in 5in;
-    margin: 0;
+  /* Photo print mode */
+  body.print-photo .main-card,
+  body.print-photo .insert-card { display: none; }
+  body.print-photo .photo-card {
+    display: block; width: 4in; height: 6in;
+    margin: 0; align-self: auto; margin-bottom: 0;
   }
 }
 </style>
@@ -341,6 +347,7 @@ body {
   <div class="toolbar-title">Annika &amp; Colby — Wedding Invitation</div>
   <span class="print-note">Set printer to: No margins &bull; Actual size</span>
   <button class="print-btn secondary" onclick="printInsert()">Print Insert (3.5×5)</button>
+  <button class="print-btn secondary" onclick="printPhoto()">Print Photo Card (4×6)</button>
   <button class="print-btn" onclick="printMain()">Print Main Card (5×7)</button>
 </div>
 
@@ -403,6 +410,11 @@ body {
 
   </div>
 
+  <!-- ENGAGEMENT PHOTO CARD — 4×6 -->
+  <div class="card photo-card">
+    <img src="photo.jpg" alt="Annika &amp; Colby">
+  </div>
+
   <!-- TEMPLE SEALING INSERT — 3.5×5 -->
   <div class="card insert-card">
 
@@ -412,8 +424,10 @@ body {
 
     <div class="insert-details">
       <div class="em">May 2, 2026</div>
+      <div>at 2:30 PM</div>
       <div>Taylorsville Utah Temple</div>
       <div style="margin-top:6px">Please arrive 15 minutes early</div>
+      <div style="margin-top:6px">Luncheon to follow</div>
     </div>
 
     <svg class="botanical" width="80" height="72" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -441,13 +455,18 @@ body {
 
 <script>
 function printMain() {
-  document.body.classList.remove('print-insert');
+  document.body.className = '';
   window.print();
 }
 function printInsert() {
-  document.body.classList.add('print-insert');
+  document.body.className = 'print-insert';
   window.print();
-  setTimeout(() => document.body.classList.remove('print-insert'), 1000);
+  setTimeout(() => document.body.className = '', 1000);
+}
+function printPhoto() {
+  document.body.className = 'print-photo';
+  window.print();
+  setTimeout(() => document.body.className = '', 1000);
 }
 </script>
 
