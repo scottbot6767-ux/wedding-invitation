@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Annika & Colby — Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #c8bfb2;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    font-family: 'Jost', sans-serif;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  }
+
+  .scene {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  /* ── LINEN CARD TEXTURE ── */
+  .card {
+    background: #f8f5f0;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.08),
+      0 8px 32px rgba(0,0,0,0.18),
+      0 20px 60px rgba(0,0,0,0.12);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(160,140,120,0.04) 2px,
+        rgba(160,140,120,0.04) 3px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(160,140,120,0.04) 2px,
+        rgba(160,140,120,0.04) 3px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── MAIN INVITATION CARD (5×7 ratio) ── */
+  .main-card {
+    width: 420px;
+    padding: 52px 48px 44px;
+    text-align: center;
+  }
+
+  .main-card > * { position: relative; z-index: 1; }
+
+  .parents-line {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #2a2420;
+    line-height: 1.8;
+    margin-bottom: 22px;
+  }
+
+  .names-block {
+    margin-bottom: 26px;
+    line-height: 1;
+  }
+
+  .name-script {
+    font-family: 'Pinyon Script', cursive;
+    color: #1c1814;
+    display: block;
+    line-height: 1.05;
+  }
+  .name-script.bride { font-size: 96px; margin-bottom: -4px; }
+  .name-script.to    { font-size: 42px; color: #4a4240; margin: 2px 0 -2px; }
+  .name-script.groom { font-size: 96px; }
+
+  .divider-line {
+    width: 60px;
+    height: 1px;
+    background: #c4b8a8;
+    margin: 0 auto 22px;
+  }
+
+  .parents-groom {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5a504a;
+    margin-bottom: 28px;
+  }
+
+  .date-block {
+    margin-bottom: 10px;
+  }
+  .day-of-week {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #5a504a;
+    margin-bottom: 4px;
+  }
+  .date-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 26px;
+    letter-spacing: 0.08em;
+    color: #1c1814;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+  .date-main .bar {
+    width: 1px;
+    height: 24px;
+    background: #b8a898;
+    display: inline-block;
+  }
+  .date-month { font-size: 22px; }
+  .date-day   { font-size: 28px; font-weight: 400; }
+  .date-year  { font-size: 18px; }
+
+  .venue-line {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #5a504a;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .reception-intro {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5a504a;
+    line-height: 1.9;
+    margin-bottom: 10px;
+  }
+
+  .reception-venue {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #1c1814;
+    margin-bottom: 5px;
+  }
+
+  .reception-address {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 8.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #7a6e68;
+    margin-bottom: 28px;
+  }
+
+  .registry-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: #8a7e78;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── SMALL INSERT CARD ── */
+  .insert-card {
+    width: 250px;
+    padding: 36px 30px 28px;
+    text-align: center;
+    align-self: flex-end;
+    margin-bottom: 30px;
+    position: relative;
+  }
+  .insert-card > * { position: relative; z-index: 1; }
+
+  /* botanical SVG at bottom of insert */
+  .botanical {
+    margin: 20px auto 0;
+    opacity: 0.45;
+    display: block;
+  }
+
+  .insert-intro {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 8px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #5a504a;
+    margin-bottom: 8px;
+    line-height: 1.9;
+  }
+  .insert-heading {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 46px;
+    color: #1c1814;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .insert-details {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 8px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5a504a;
+    line-height: 2;
+  }
+  .insert-details .em {
+    font-weight: 400;
+    color: #2a2420;
+  }
+
+  /* QR placeholders */
+  .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 22px;
+  }
+  .qr-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .qr-box {
+    width: 58px;
+    height: 58px;
+    border: 1px solid #c4b8a8;
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  /* fake QR pattern */
+  .qr-box::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    background-image:
+      repeating-linear-gradient(0deg, #bbb 0px, #bbb 4px, transparent 4px, transparent 8px),
+      repeating-linear-gradient(90deg, #bbb 0px, #bbb 4px, transparent 4px, transparent 8px);
+    opacity: 0.4;
+  }
+  .qr-box-inner {
+    width: 22px; height: 22px;
+    background: #f8f5f0;
+    border: 3px solid #888;
+    position: relative; z-index: 1;
+  }
+  .qr-label {
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    font-size: 7.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8a7e78;
+  }
+
+  /* ── PRINT MODE ── */
+  @media print {
+    body { background: white; padding: 0; }
+    .scene { gap: 0; }
+    .main-card { width: 5in; padding: 0.6in 0.5in; box-shadow: none; }
+    .insert-card { width: 3in; box-shadow: none; }
+    .card::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scene">
+
+  <!-- MAIN INVITATION -->
+  <div class="card main-card">
+
+    <div class="parents-line">
+      Jake and Kelsie Dahl are pleased to announce<br>
+      the marriage of their daughter
+    </div>
+
+    <div class="names-block">
+      <span class="name-script bride">Annika</span>
+      <span class="name-script to">to</span>
+      <span class="name-script groom">Colby</span>
+    </div>
+
+    <div class="parents-groom">Son of Orson and Devri Thornton</div>
+
+    <div class="divider-line"></div>
+
+    <div class="date-block">
+      <div class="day-of-week">Saturday</div>
+      <div class="date-main">
+        <span class="date-month">May</span>
+        <span class="bar"></span>
+        <span class="date-day">2</span>
+        <span class="bar"></span>
+        <span class="date-year">2026</span>
+      </div>
+    </div>
+
+    <div class="venue-line">
+      In the Taylorsville Utah Temple
+    </div>
+
+    <div class="divider-line"></div>
+
+    <div class="reception-intro">
+      Please join us to celebrate<br>
+      at their reception
+    </div>
+
+    <div class="reception-venue">Ivory Ridge</div>
+    <div class="reception-address">[Address] &bull; Lehi, Utah 84043</div>
+
+    <div class="registry-line">Registered on Amazon and Venmo</div>
+
+    <div class="qr-row">
+      <div class="qr-item">
+        <div class="qr-box"><div class="qr-box-inner"></div></div>
+        <div class="qr-label">Amazon</div>
+      </div>
+      <div class="qr-item">
+        <div class="qr-box"><div class="qr-box-inner"></div></div>
+        <div class="qr-label">Venmo</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TEMPLE SEALING INSERT -->
+  <div class="card insert-card">
+
+    <div class="insert-intro">Please join us for the</div>
+
+    <div class="insert-heading">Temple<br>Sealing</div>
+
+    <div class="insert-details">
+      <div class="em">May 2, 2026</div>
+      <div>Taylorsville Utah Temple</div>
+      <div style="margin-top:8px">Please arrive 15 minutes early</div>
+    </div>
+
+    <!-- Botanical SVG -->
+    <svg class="botanical" width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- stem -->
+      <line x1="45" y1="78" x2="45" y2="20" stroke="#5a5040" stroke-width="1"/>
+      <!-- main bloom -->
+      <circle cx="45" cy="16" r="5" stroke="#5a5040" stroke-width="1" fill="none"/>
+      <line x1="45" y1="11" x2="45" y2="4" stroke="#5a5040" stroke-width="1"/>
+      <circle cx="45" cy="3" r="2" fill="#5a5040" opacity="0.6"/>
+      <!-- left branch -->
+      <path d="M45 50 Q32 44 26 36" stroke="#5a5040" stroke-width="1" fill="none"/>
+      <ellipse cx="23" cy="33" rx="5" ry="7" transform="rotate(-30 23 33)" stroke="#5a5040" stroke-width="0.8" fill="none"/>
+      <!-- right branch -->
+      <path d="M45 44 Q57 38 62 30" stroke="#5a5040" stroke-width="1" fill="none"/>
+      <ellipse cx="65" cy="27" rx="5" ry="7" transform="rotate(30 65 27)" stroke="#5a5040" stroke-width="0.8" fill="none"/>
+      <!-- lower left -->
+      <path d="M45 62 Q35 57 30 50" stroke="#5a5040" stroke-width="1" fill="none"/>
+      <ellipse cx="27" cy="48" rx="4" ry="6" transform="rotate(-20 27 48)" stroke="#5a5040" stroke-width="0.8" fill="none"/>
+      <!-- lower right -->
+      <path d="M45 58 Q54 53 58 46" stroke="#5a5040" stroke-width="1" fill="none"/>
+      <ellipse cx="61" cy="44" rx="4" ry="6" transform="rotate(20 61 44)" stroke="#5a5040" stroke-width="0.8" fill="none"/>
+      <!-- tiny florets -->
+      <circle cx="26" cy="36" r="1.5" fill="#5a5040" opacity="0.5"/>
+      <circle cx="63" cy="30" r="1.5" fill="#5a5040" opacity="0.5"/>
+      <circle cx="27" cy="48" r="1.5" fill="#5a5040" opacity="0.5"/>
+      <circle cx="60" cy="46" r="1.5" fill="#5a5040" opacity="0.5"/>
+    </svg>
+
+  </div>
+
+</div>
+
+</body>
+</html>
