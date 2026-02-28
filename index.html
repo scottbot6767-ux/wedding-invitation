@@ -6,308 +6,347 @@
 <title>Annika & Colby — Wedding Invitation</title>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    background: #c8bfb2;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 40px;
-    font-family: 'Jost', sans-serif;
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
-  }
+/* ── SCREEN SHELL ── */
+body {
+  background: #b8af9f;
+  min-height: 100vh;
+  font-family: 'Jost', sans-serif;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.07'/%3E%3C/svg%3E");
+}
 
-  .scene {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 32px;
-    flex-wrap: wrap;
-  }
+/* ── PRINT TOOLBAR ── */
+.toolbar {
+  background: #2a2420;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.toolbar-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #e8e0d8;
+  margin-right: auto;
+  letter-spacing: 0.04em;
+}
+.print-btn {
+  background: #f8f5f0;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #2a2420;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.15s;
+}
+.print-btn:hover { background: #fff; }
+.print-btn.secondary {
+  background: transparent;
+  border: 1px solid #5a504a;
+  color: #c8bfb2;
+}
+.print-btn.secondary:hover { border-color: #c8bfb2; color: #fff; }
+.print-note {
+  font-size: 11px;
+  color: #7a6e68;
+  letter-spacing: 0.03em;
+}
 
-  /* ── LINEN CARD TEXTURE ── */
-  .card {
-    background: #f8f5f0;
-    position: relative;
-    overflow: hidden;
-    box-shadow:
-      0 2px 4px rgba(0,0,0,0.08),
-      0 8px 32px rgba(0,0,0,0.18),
-      0 20px 60px rgba(0,0,0,0.12);
-  }
-  .card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(160,140,120,0.04) 2px,
-        rgba(160,140,120,0.04) 3px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 2px,
-        rgba(160,140,120,0.04) 2px,
-        rgba(160,140,120,0.04) 3px
-      );
-    pointer-events: none;
-    z-index: 0;
-  }
+/* ── SCENE ── */
+.scene {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 40px;
+  padding: 48px 40px 60px;
+  flex-wrap: wrap;
+}
 
-  /* ── MAIN INVITATION CARD (5×7 ratio) ── */
+/* ── CARD BASE ── */
+.card {
+  background: #f8f5f0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.07), 0 12px 40px rgba(0,0,0,0.2), 0 24px 64px rgba(0,0,0,0.1);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(140,120,100,0.035) 2px, rgba(140,120,100,0.035) 3px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(140,120,100,0.035) 2px, rgba(140,120,100,0.035) 3px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── MAIN CARD — exactly 5in × 7in ── */
+.main-card {
+  width: 5in;
+  height: 7in;
+  padding: 0.52in 0.5in 0.44in;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.main-card > * { position: relative; z-index: 1; }
+
+.parents-line {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 7pt;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #2a2420;
+  line-height: 1.85;
+}
+
+.names-block { line-height: 1; }
+.name-script {
+  font-family: 'Pinyon Script', cursive;
+  color: #1c1814;
+  display: block;
+  line-height: 1.05;
+}
+.name-script.bride { font-size: 68pt; }
+.name-script.to    { font-size: 30pt; color: #5a504a; margin: 0.02in 0; }
+.name-script.groom { font-size: 68pt; }
+
+.divider-line {
+  width: 0.6in;
+  height: 1px;
+  background: #c4b8a8;
+  margin: 0 auto;
+}
+
+.parents-groom {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 6.5pt;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #5a504a;
+}
+
+.date-block { text-align: center; }
+.day-of-week {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 6.5pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #5a504a;
+  margin-bottom: 5px;
+}
+.date-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 19pt;
+  letter-spacing: 0.06em;
+  color: #1c1814;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.date-main .bar {
+  width: 1px; height: 20px;
+  background: #b8a898;
+  display: inline-block;
+}
+.date-day { font-size: 22pt; font-weight: 400; }
+
+.venue-line {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 6.5pt;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5a504a;
+  line-height: 1.8;
+}
+
+.reception-block { text-align: center; }
+.reception-intro {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 6.5pt;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #5a504a;
+  line-height: 1.9;
+  margin-bottom: 6px;
+}
+.reception-venue {
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 9pt;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #1c1814;
+  margin-bottom: 4px;
+}
+.reception-address {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 6pt;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #7a6e68;
+}
+
+.registry-block { text-align: center; }
+.registry-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 9pt;
+  color: #8a7e78;
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+}
+.qr-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.qr-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.qr-item img {
+  width: 0.65in;
+  height: 0.65in;
+  border: 1px solid #c4b8a8;
+  display: block;
+}
+.qr-label {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 5.5pt;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #8a7e78;
+}
+
+/* ── INSERT CARD — 3.5in × 5in ── */
+.insert-card {
+  width: 3.5in;
+  height: 5in;
+  padding: 0.45in 0.4in 0.35in;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  align-self: flex-end;
+  margin-bottom: 1in; /* visually align with main card bottom */
+}
+.insert-card > * { position: relative; z-index: 1; }
+
+.insert-intro {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 6pt;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #5a504a;
+  line-height: 1.9;
+}
+.insert-heading {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 44pt;
+  color: #1c1814;
+  line-height: 1.1;
+}
+.insert-details {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 6pt;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #5a504a;
+  line-height: 2;
+}
+.insert-details .em {
+  font-weight: 400;
+  color: #2a2420;
+}
+.botanical {
+  opacity: 0.42;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ── PRINT ── */
+@media print {
+  body { background: white; }
+  .toolbar { display: none; }
+
+  /* Default: print main card only */
+  .scene { padding: 0; gap: 0; display: block; }
+  .insert-card { display: none; }
+
   .main-card {
-    width: 420px;
-    padding: 52px 48px 44px;
-    text-align: center;
+    width: 5in;
+    height: 7in;
+    box-shadow: none;
+    margin: 0;
   }
+  .card::before { display: none; }
 
-  .main-card > * { position: relative; z-index: 1; }
+  @page {
+    size: 5in 7in;
+    margin: 0;
+  }
+}
 
-  .parents-line {
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 9.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #2a2420;
-    line-height: 1.8;
-    margin-bottom: 22px;
-  }
-
-  .names-block {
-    margin-bottom: 26px;
-    line-height: 1;
-  }
-
-  .name-script {
-    font-family: 'Pinyon Script', cursive;
-    color: #1c1814;
-    display: block;
-    line-height: 1.05;
-  }
-  .name-script.bride { font-size: 96px; margin-bottom: -4px; }
-  .name-script.to    { font-size: 42px; color: #4a4240; margin: 2px 0 -2px; }
-  .name-script.groom { font-size: 96px; }
-
-  .divider-line {
-    width: 60px;
-    height: 1px;
-    background: #c4b8a8;
-    margin: 0 auto 22px;
-  }
-
-  .parents-groom {
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 9px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #5a504a;
-    margin-bottom: 28px;
-  }
-
-  .date-block {
-    margin-bottom: 10px;
-  }
-  .day-of-week {
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 9px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #5a504a;
-    margin-bottom: 4px;
-  }
-  .date-main {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 26px;
-    letter-spacing: 0.08em;
-    color: #1c1814;
+/* Insert-only print mode */
+@media print {
+  body.print-insert .main-card { display: none; }
+  body.print-insert .insert-card {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 4px;
+    width: 3.5in;
+    height: 5in;
+    box-shadow: none;
+    margin: 0;
+    align-self: auto;
+    margin-bottom: 0;
   }
-  .date-main .bar {
-    width: 1px;
-    height: 24px;
-    background: #b8a898;
-    display: inline-block;
-  }
-  .date-month { font-size: 22px; }
-  .date-day   { font-size: 28px; font-weight: 400; }
-  .date-year  { font-size: 18px; }
+  body.print-insert { }
 
-  .venue-line {
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: #5a504a;
-    line-height: 1.8;
-    margin-bottom: 24px;
+  @page insert-page {
+    size: 3.5in 5in;
+    margin: 0;
   }
-
-  .reception-intro {
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 9px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #5a504a;
-    line-height: 1.9;
-    margin-bottom: 10px;
-  }
-
-  .reception-venue {
-    font-family: 'Jost', sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #1c1814;
-    margin-bottom: 5px;
-  }
-
-  .reception-address {
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 8.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #7a6e68;
-    margin-bottom: 28px;
-  }
-
-  .registry-line {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 12px;
-    color: #8a7e78;
-    letter-spacing: 0.02em;
-  }
-
-  /* ── SMALL INSERT CARD ── */
-  .insert-card {
-    width: 250px;
-    padding: 36px 30px 28px;
-    text-align: center;
-    align-self: flex-end;
-    margin-bottom: 30px;
-    position: relative;
-  }
-  .insert-card > * { position: relative; z-index: 1; }
-
-  /* botanical SVG at bottom of insert */
-  .botanical {
-    margin: 20px auto 0;
-    opacity: 0.45;
-    display: block;
-  }
-
-  .insert-intro {
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 8px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #5a504a;
-    margin-bottom: 8px;
-    line-height: 1.9;
-  }
-  .insert-heading {
-    font-family: 'Pinyon Script', cursive;
-    font-size: 46px;
-    color: #1c1814;
-    line-height: 1.1;
-    margin-bottom: 10px;
-  }
-  .insert-details {
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 8px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #5a504a;
-    line-height: 2;
-  }
-  .insert-details .em {
-    font-weight: 400;
-    color: #2a2420;
-  }
-
-  /* QR placeholders */
-  .qr-row {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin-top: 22px;
-  }
-  .qr-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-  }
-  .qr-box {
-    width: 58px;
-    height: 58px;
-    border: 1px solid #c4b8a8;
-    display: grid;
-    place-items: center;
-    position: relative;
-    overflow: hidden;
-  }
-  /* fake QR pattern */
-  .qr-box::before {
-    content: '';
-    position: absolute;
-    inset: 5px;
-    background-image:
-      repeating-linear-gradient(0deg, #bbb 0px, #bbb 4px, transparent 4px, transparent 8px),
-      repeating-linear-gradient(90deg, #bbb 0px, #bbb 4px, transparent 4px, transparent 8px);
-    opacity: 0.4;
-  }
-  .qr-box-inner {
-    width: 22px; height: 22px;
-    background: #f8f5f0;
-    border: 3px solid #888;
-    position: relative; z-index: 1;
-  }
-  .qr-label {
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 7.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #8a7e78;
-  }
-
-  /* ── PRINT MODE ── */
-  @media print {
-    body { background: white; padding: 0; }
-    .scene { gap: 0; }
-    .main-card { width: 5in; padding: 0.6in 0.5in; box-shadow: none; }
-    .insert-card { width: 3in; box-shadow: none; }
-    .card::before { display: none; }
-  }
+}
 </style>
 </head>
 <body>
 
+<!-- PRINT TOOLBAR -->
+<div class="toolbar">
+  <div class="toolbar-title">Annika &amp; Colby — Wedding Invitation</div>
+  <span class="print-note">Set printer to: No margins &bull; Actual size</span>
+  <button class="print-btn secondary" onclick="printInsert()">Print Insert (3.5×5)</button>
+  <button class="print-btn" onclick="printMain()">Print Main Card (5×7)</button>
+</div>
+
 <div class="scene">
 
-  <!-- MAIN INVITATION -->
+  <!-- MAIN INVITATION — 5×7 -->
   <div class="card main-card">
 
     <div class="parents-line">
@@ -328,44 +367,43 @@
     <div class="date-block">
       <div class="day-of-week">Saturday</div>
       <div class="date-main">
-        <span class="date-month">May</span>
+        <span>May</span>
         <span class="bar"></span>
         <span class="date-day">2</span>
         <span class="bar"></span>
-        <span class="date-year">2026</span>
+        <span>2026</span>
       </div>
     </div>
 
-    <div class="venue-line">
-      In the Taylorsville Utah Temple
-    </div>
+    <div class="venue-line">In the Taylorsville Utah Temple</div>
 
     <div class="divider-line"></div>
 
-    <div class="reception-intro">
-      Please join us to celebrate<br>
-      at their reception
+    <div class="reception-block">
+      <div class="reception-intro">
+        Please join us to celebrate<br>at their reception
+      </div>
+      <div class="reception-venue">Ivory Ridge</div>
+      <div class="reception-address">32 E Clubview Ln &bull; Lehi, Utah 84043</div>
     </div>
 
-    <div class="reception-venue">Ivory Ridge</div>
-    <div class="reception-address">32 E Clubview Ln &bull; Lehi, Utah 84043</div>
-
-    <div class="registry-line">Registered on Amazon and Venmo</div>
-
-    <div class="qr-row">
-      <div class="qr-item">
-        <img src="data:image/png;base64,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" width="64" height="64" alt="Amazon Registry QR" style="border:1px solid #c4b8a8;">
-        <div class="qr-label">Amazon Registry</div>
-      </div>
-      <div class="qr-item">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=64x64&margin=2&data=https%3A%2F%2Fvenmo.com%2Fu%2FAnnika-Dahl-2" width="64" height="64" alt="Venmo QR" style="border:1px solid #c4b8a8;">
-        <div class="qr-label">Venmo</div>
+    <div class="registry-block">
+      <div class="registry-line">Registered on Amazon and Venmo</div>
+      <div class="qr-row">
+        <div class="qr-item">
+          <img src="data:image/png;base64,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" alt="Amazon Registry">
+          <div class="qr-label">Amazon</div>
+        </div>
+        <div class="qr-item">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&margin=2&data=https%3A%2F%2Fvenmo.com%2Fu%2FAnnika-Dahl-2" alt="Venmo">
+          <div class="qr-label">Venmo</div>
+        </div>
       </div>
     </div>
 
   </div>
 
-  <!-- TEMPLE SEALING INSERT -->
+  <!-- TEMPLE SEALING INSERT — 3.5×5 -->
   <div class="card insert-card">
 
     <div class="insert-intro">Please join us for the</div>
@@ -375,30 +413,22 @@
     <div class="insert-details">
       <div class="em">May 2, 2026</div>
       <div>Taylorsville Utah Temple</div>
-      <div style="margin-top:8px">Please arrive 15 minutes early</div>
+      <div style="margin-top:6px">Please arrive 15 minutes early</div>
     </div>
 
-    <!-- Botanical SVG -->
-    <svg class="botanical" width="90" height="80" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- stem -->
+    <svg class="botanical" width="80" height="72" viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="45" y1="78" x2="45" y2="20" stroke="#5a5040" stroke-width="1"/>
-      <!-- main bloom -->
       <circle cx="45" cy="16" r="5" stroke="#5a5040" stroke-width="1" fill="none"/>
       <line x1="45" y1="11" x2="45" y2="4" stroke="#5a5040" stroke-width="1"/>
       <circle cx="45" cy="3" r="2" fill="#5a5040" opacity="0.6"/>
-      <!-- left branch -->
       <path d="M45 50 Q32 44 26 36" stroke="#5a5040" stroke-width="1" fill="none"/>
       <ellipse cx="23" cy="33" rx="5" ry="7" transform="rotate(-30 23 33)" stroke="#5a5040" stroke-width="0.8" fill="none"/>
-      <!-- right branch -->
       <path d="M45 44 Q57 38 62 30" stroke="#5a5040" stroke-width="1" fill="none"/>
       <ellipse cx="65" cy="27" rx="5" ry="7" transform="rotate(30 65 27)" stroke="#5a5040" stroke-width="0.8" fill="none"/>
-      <!-- lower left -->
       <path d="M45 62 Q35 57 30 50" stroke="#5a5040" stroke-width="1" fill="none"/>
       <ellipse cx="27" cy="48" rx="4" ry="6" transform="rotate(-20 27 48)" stroke="#5a5040" stroke-width="0.8" fill="none"/>
-      <!-- lower right -->
       <path d="M45 58 Q54 53 58 46" stroke="#5a5040" stroke-width="1" fill="none"/>
       <ellipse cx="61" cy="44" rx="4" ry="6" transform="rotate(20 61 44)" stroke="#5a5040" stroke-width="0.8" fill="none"/>
-      <!-- tiny florets -->
       <circle cx="26" cy="36" r="1.5" fill="#5a5040" opacity="0.5"/>
       <circle cx="63" cy="30" r="1.5" fill="#5a5040" opacity="0.5"/>
       <circle cx="27" cy="48" r="1.5" fill="#5a5040" opacity="0.5"/>
@@ -408,6 +438,18 @@
   </div>
 
 </div>
+
+<script>
+function printMain() {
+  document.body.classList.remove('print-insert');
+  window.print();
+}
+function printInsert() {
+  document.body.classList.add('print-insert');
+  window.print();
+  setTimeout(() => document.body.classList.remove('print-insert'), 1000);
+}
+</script>
 
 </body>
 </html>
