@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Export Wedding PNGs</title>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #b8af9f;
+  font-family: 'Jost', sans-serif;
+  min-height: 100vh;
+}
+
+.toolbar {
+  background: #2a2420;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.toolbar-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #e8e0d8;
+  margin-right: auto;
+  letter-spacing: 0.04em;
+}
+.export-btn {
+  background: #f8f5f0;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #2a2420;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.15s;
+}
+.export-btn:hover { background: #fff; }
+.export-btn:disabled { opacity: 0.5; cursor: wait; }
+.export-btn.both { background: #eadf8a; }
+.export-btn.both:hover { background: #f0e68c; }
+.status {
+  font-size: 11px;
+  color: #a09888;
+  letter-spacing: 0.03em;
+}
+
+.scene {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 40px;
+  padding: 48px 40px 60px;
+  flex-wrap: wrap;
+}
+
+/* ── CARD BASE ── */
+.card {
+  background: #f8f5f0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.07), 0 12px 40px rgba(0,0,0,0.2);
+}
+
+/* ── MAIN CARD — 5×7in at 300dpi = 1500×2100px, render at 2x screen ── */
+.main-card {
+  width: 5in;
+  height: 7in;
+  padding: 0.52in 0.5in 0.44in;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.main-card > * { position: relative; z-index: 1; }
+
+.parents-line {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 7pt;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #2a2420;
+  line-height: 1.85;
+}
+
+.names-block { line-height: 1; }
+.name-script {
+  font-family: 'Pinyon Script', cursive;
+  color: #1c1814;
+  display: block;
+  line-height: 1.05;
+}
+.name-script.bride { font-size: 68pt; margin-bottom: -0.04in; }
+.name-script.to    { font-size: 30pt; color: #5a504a; margin: 0; }
+.name-script.groom { font-size: 68pt; margin-top: -0.04in; }
+
+.divider-line {
+  width: 0.6in;
+  height: 1px;
+  background: #c4b8a8;
+  margin: 0 auto;
+}
+
+.parents-groom {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 6.5pt;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #5a504a;
+}
+
+.date-block { text-align: center; }
+.day-of-week {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 6.5pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #5a504a;
+  margin-bottom: 5px;
+}
+.date-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: 19pt;
+  letter-spacing: 0.06em;
+  color: #1c1814;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.date-main .bar {
+  width: 1px; height: 20px;
+  background: #b8a898;
+  display: inline-block;
+}
+.date-day { font-size: 22pt; font-weight: 400; }
+
+.venue-line {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 6.5pt;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #5a504a;
+  line-height: 1.8;
+}
+
+.reception-block { text-align: center; }
+.reception-intro {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 6.5pt;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #5a504a;
+  line-height: 1.9;
+  margin-bottom: 6px;
+}
+.reception-venue {
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 9pt;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #1c1814;
+  margin-bottom: 4px;
+}
+.reception-address {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 6pt;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #7a6e68;
+}
+
+.registry-block { text-align: center; }
+.registry-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 9pt;
+  color: #8a7e78;
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+}
+.qr-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.qr-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.qr-item img {
+  width: 0.65in;
+  height: 0.65in;
+  border: 1px solid #c4b8a8;
+  display: block;
+}
+.qr-label {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  font-size: 5.5pt;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: #8a7e78;
+}
+
+/* ── PHOTO CARD ── */
+.photo-card {
+  width: 5in;
+  height: 7in;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo-card img {
+  width: 4in;
+  height: 6in;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  position: relative;
+  z-index: 1;
+  border: 1px solid #c4b8a8;
+  box-shadow: 0 0 0 4px #f8f5f0, 0 0 0 5px #c4b8a8;
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-title">Annika &amp; Colby — Export to PNG</div>
+  <span class="status" id="status">Ready to export</span>
+  <button class="export-btn" onclick="exportCard('invitation')">Download Invitation PNG</button>
+  <button class="export-btn" onclick="exportCard('photo')">Download Photo PNG</button>
+  <button class="export-btn both" onclick="exportBoth()">Download Both</button>
+</div>
+
+<div class="scene">
+
+  <!-- MAIN INVITATION — 5×7 -->
+  <div class="card main-card" id="invitation">
+
+    <div class="parents-line">
+      Jake and Kelsie Dahl are pleased to announce<br>
+      the marriage of their daughter
+    </div>
+
+    <div class="names-block">
+      <span class="name-script bride">Annika</span>
+      <span class="name-script to">to</span>
+      <span class="name-script groom">Colby</span>
+    </div>
+
+    <div class="parents-groom">Son of Orson and Deveri Thornton</div>
+
+    <div class="divider-line"></div>
+
+    <div class="date-block">
+      <div class="day-of-week">Saturday</div>
+      <div class="date-main">
+        <span>May</span>
+        <span class="bar"></span>
+        <span class="date-day">2</span>
+        <span class="bar"></span>
+        <span>2026</span>
+      </div>
+    </div>
+
+    <div class="venue-line">In the Taylorsville Utah Temple</div>
+
+    <div class="divider-line"></div>
+
+    <div class="reception-block">
+      <div class="reception-intro">
+        Please join us to celebrate<br>at their reception
+      </div>
+      <div class="reception-venue">Ivory Ridge</div>
+      <div class="reception-address">32 E Clubview Ln &bull; Lehi, Utah 84043</div>
+      <div class="reception-address" style="margin-top:4px;letter-spacing:0.14em">11:00 AM &ndash; 1:00 PM</div>
+    </div>
+
+    <div class="registry-block">
+      <div class="registry-line">Registered on Amazon and Venmo</div>
+      <div class="qr-row">
+        <div class="qr-item">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=2&data=https%3A%2F%2Fwww.amazon.com%2Fwedding%2Fguest-view%2F10LEUT1AVS7O6" alt="Amazon Registry" crossorigin="anonymous">
+          <div class="qr-label">Amazon</div>
+        </div>
+        <div class="qr-item">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=2&data=https%3A%2F%2Fvenmo.com%2Fu%2FAnnika-Dahl-2" alt="Venmo" crossorigin="anonymous">
+          <div class="qr-label">Venmo</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PHOTO CARD — 5×7 -->
+  <div class="card photo-card" id="photo">
+    <img src="photo.jpg" alt="Annika &amp; Colby" crossorigin="anonymous">
+  </div>
+
+</div>
+
+<script>
+async function exportCard(id) {
+  const el = document.getElementById(id);
+  const status = document.getElementById('status');
+  const buttons = document.querySelectorAll('.export-btn');
+
+  buttons.forEach(b => b.disabled = true);
+  status.textContent = `Rendering ${id}...`;
+
+  try {
+    // Wait for fonts and images
+    await document.fonts.ready;
+
+    const canvas = await html2canvas(el, {
+      scale: 3,  // 3x for ~300dpi at 5in = 1440px -> 4320px
+      useCORS: true,
+      allowTaint: false,
+      backgroundColor: '#f8f5f0',
+      logging: false,
+    });
+
+    const link = document.createElement('a');
+    link.download = id === 'invitation'
+      ? 'annika-colby-invitation.png'
+      : 'annika-colby-photo.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+
+    status.textContent = `${id === 'invitation' ? 'Invitation' : 'Photo'} downloaded!`;
+  } catch (err) {
+    status.textContent = `Error: ${err.message}`;
+    console.error(err);
+  }
+
+  buttons.forEach(b => b.disabled = false);
+}
+
+async function exportBoth() {
+  await exportCard('invitation');
+  await new Promise(r => setTimeout(r, 500));
+  await exportCard('photo');
+  document.getElementById('status').textContent = 'Both files downloaded!';
+}
+</script>
+
+</body>
+</html>
